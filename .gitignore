@@ -4,7 +4,7 @@ node_modules/
 .pnp.js
 
 # Build outputs
-assets/
+# assets/ - GitHub Pages에서 사용하므로 커밋 필요
 dist/
 build/
 *.tsbuildinfo

@@ -41,6 +41,9 @@ const ROOT_DIR = path.resolve(__dirname, "..", "..");
 const ASSETS_DIR = path.resolve(ROOT_DIR, "assets");
 
 function readWidgetHtml(componentName: string): string {
+  // GitHub Pages base URL
+  const GITHUB_PAGES_BASE = "https://wineny.github.io/portfolio-builder-chatgpt/assets";
+
   if (!fs.existsSync(ASSETS_DIR)) {
     throw new Error(
       `Widget assets not found. Expected directory ${ASSETS_DIR}. Run "pnpm run build" before starting the server.`
@@ -66,18 +69,16 @@ function readWidgetHtml(componentName: string): string {
   const cssFile = cssFiles[cssFiles.length - 1];
   const jsFile = jsFiles[jsFiles.length - 1];
 
-  const cssContent = fs.readFileSync(path.join(ASSETS_DIR, cssFile), "utf8");
-  const jsContent = fs.readFileSync(path.join(ASSETS_DIR, jsFile), "utf8");
-
-  // Create inline HTML
+  // GitHub Pages에서 리소스 참조
   const htmlContents = `<!doctype html>
 <html>
 <head>
-  <style>${cssContent}</style>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' ${GITHUB_PAGES_BASE}; script-src 'self' 'unsafe-inline' 'unsafe-eval' ${GITHUB_PAGES_BASE};" />
+  <link rel="stylesheet" href="${GITHUB_PAGES_BASE}/${cssFile}" crossorigin="anonymous" />
 </head>
 <body>
   <div id="${componentName}-root"></div>
-  <script type="module">${jsContent}</script>
+  <script type="module" src="${GITHUB_PAGES_BASE}/${jsFile}" crossorigin="anonymous"></script>
 </body>
 </html>
 `;
@@ -95,8 +96,8 @@ function widgetDescriptorMeta(widget: PizzazWidget) {
     "openai/widgetPrefersBorder": true,
     "openai/widgetDomain": "https://chatgpt.com",
     "openai/widgetCSP": {
-      connect_domains: ["http://localhost:4444"],
-      resource_domains: ["http://localhost:4444"],
+      connect_domains: ["https://wineny.github.io"],
+      resource_domains: ["https://wineny.github.io"],
     },
     "openai/widgetDescription": `Interactive ${widget.title} widget with form validation and accessibility features`,
   } as const;

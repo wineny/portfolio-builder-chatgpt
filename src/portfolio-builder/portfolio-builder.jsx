@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useWidgetState } from "../shared/use-widget-state";
+import { initialPortfolioState } from "../shared/portfolio-types";
 import "./portfolio-builder.css";
 
 function PortfolioBuilder() {
-  const [widgetState, setWidgetState] = useWidgetState({
-    profile: { name: "", company: "" }
-  });
+  const [widgetState, setWidgetState] = useWidgetState(initialPortfolioState);
 
   // 로컬 에러 상태
   const [errors, setErrors] = useState({

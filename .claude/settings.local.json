@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/wine_ny/side-project/portfolio-builder-chatgpt/src/portfolio-builder)",
+      "Bash(pnpm run build)",
+      "Bash(pnpm install)",
+      "Bash(lsof -ti:4444)",
+      "Bash(curl -I http://localhost:4444/portfolio-builder.html)",
+      "Bash(curl -I http://localhost:4444/portfolio-builder-9252.html)",
+      "Bash(curl -s http://localhost:4444/portfolio-builder-9252.html)",
+      "Bash(xargs kill -9)",
+      "Bash(curl -I http://localhost:4444/portfolio-builder-9252.js)",
+      "Bash(curl -I http://localhost:4444/portfolio-builder-9252.css)",
+      "Bash(cat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
